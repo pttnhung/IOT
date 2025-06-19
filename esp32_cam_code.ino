@@ -5,10 +5,12 @@
 #include <iostream>
 #include <sstream>
 #include <ESP32Servo.h>
+
 #define TILT_PIN 15
-#define UART_TX 1
+#define UART_TX 12 // tuy trùng với motor nhưng không ảnh hưởng gì nhiều
 #define UART_BAUDRATE 9600
 #define PAN_PIN 13
+
 const int PWMFreq = 1000;
 const int PWMResolution = 8;
 const int PWMSpeedChannel = 2;
@@ -20,10 +22,11 @@ struct MOTOR_PINS {
  int pinIN1;
  int pinIN2;
 };
-motorPins = {
+MOTOR_PINS motorPins[] = {
  {14, 2, 4}, // RIGHT_MOTOR
  {16, 0, 12} // LEFT_MOTOR
 };
+
 #define RIGHT_MOTOR 0
 #define LEFT_MOTOR 1
 #define FORWARD 1
@@ -38,6 +41,7 @@ AsyncWebSocket wsCarInput("/CarInput");
 Servo tiltServo;
 Servo panServo;
 const char *htmlHomePage PROGMEM = R"HTMLHOMEPAGE(
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,6 +145,7 @@ sendButtonInput("Speed", document.getElementById("Speed").value);
 </body>
 </html>
 )HTMLHOMEPAGE";
+
 // ---- MOTOR CONTROL ----
 void rotateMotor(int motorNumber, int motorDirection) {
  digitalWrite(motorPins[motorNumber].pinIN1, motorDirection == FORWARD ?
@@ -207,7 +212,7 @@ void onCarInputWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient
 }
 void setup() {
  Serial.begin(115200);
- Serial1.begin(UART_BAUDRATE, SERIAL_8N1, -1, UART_TX); // Only TX used
+ Serial1.begin(UART_BAUDRATE, SERIAL_8N1, -1, UART_TX);  // TX only
  setUpPinModes();
  WiFi.softAP(ssid, password);
  IPAddress IP = WiFi.softAPIP();
