@@ -1,6 +1,7 @@
-🔥 Firefighting Robot using ESP32 + Arduino Uno
-
+# 🔥 Firefighting Robot using ESP32 + Arduino Uno
+---------------------------------------------------
 If you have ESP32 devkit V1: just copy all code in main branch 
+If you have ESP32 cam : copy all code in esp32 cam branch
 
 This project is a remote-controlled firefighting robot using ESP32 DevKit V1 and Arduino Uno, featuring:
 
@@ -14,7 +15,7 @@ Web interface (via Wi-Fi)
 
 Communication between ESP32 ↔ Uno via UART
 
-📦 Features
+# 📦 Features
 🚗 Control movement (forward, backward, left, right, stop)
 
 🎯 Pan/Tilt camera via sliders
@@ -27,7 +28,7 @@ Communication between ESP32 ↔ Uno via UART
 
 🧠 ESP32 handles logic + sends UART commands to Uno
 
-⚙️ Hardware Requirements
+# ⚙️ Hardware Requirements
 ESP32 DevKit V1
 
 Arduino Uno
@@ -46,7 +47,7 @@ L298N Motor Driver
 
 Jumper wires, power supply, chassis
 
-🔌 Wiring Overview
+# 🔌 Wiring Overview
 ESP32 DevKit V1
 
 | Function        | GPIO   | Connect To          |
@@ -63,7 +64,7 @@ ESP32 DevKit V1
 | GND             | GND    | Common GND          |
 | 5V (optional)   | 5V     | L298N VCC           |
 
-Arduino Uno
+ Arduino Uno
 
 | Pin | Function      |
 | --- | ------------- |
@@ -73,7 +74,8 @@ Arduino Uno
 | D8  | RX from ESP32 |
 | GND | Common GND    |
 
-🚀 How to Run
+# 🚀 How to Run
+
 1. Flash Code
 Open ESP32_Controller.ino in Arduino IDE
 
@@ -126,8 +128,15 @@ If ESP32 sends "OFF", Uno disables pump and ignores fire for 3 seconds
 
 If ESP32 sends "ON", Uno immediately activates pump manually
 
-📂 Robot-Firefighter
+# 📂 Robot-Firefighter
  ├── ESP32_vehicle.ino      # Web UI + motor + UART
  ├── Arduino_Uno.ino        # Flame detection + buzzer + relay
  ├── readme.md              # This guide
  └── README.md              # reports
+
+# 🧠 Notes
+Use logic level shifter (or voltage divider) if needed between ESP32 (3.3V) and Uno (5V)
+
+Use external power for motors/pump if high current is needed
+
+You can expand with camera streaming, smoke sensor, or cloud logging
